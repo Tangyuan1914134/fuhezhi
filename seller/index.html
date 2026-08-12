@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe4">
+  <title>商家后台 · 复合纸定制实验室</title>
+  <meta name="description" content="复合纸定制静态商家后台，可维护店铺、分类、选项、图片、价格和演示订单。">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../" aria-label="返回首页">
+        <span class="brand-symbol" aria-hidden="true">FHZ</span>
+        <span class="brand-copy"><strong>商家后台</strong><small>目录与订单管理</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">菜单</button>
+      <nav class="site-nav" id="siteNav" aria-label="主导航">
+        <a href="../buyer/">买家定制</a>
+        <a class="active" aria-current="page" href="../seller/">商家后台</a>
+        <a href="../orders/">订单查询</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="shell page-main">
+    <section id="loginView" class="login-layout" hidden>
+      <div class="login-copy">
+        <p class="kicker">SELLER CONSOLE</p>
+        <h1>进入商家后台</h1>
+        <p class="page-lead">这里用于维护纸张分类、图片、说明、价格和订单状态。静态版本的登录只用于演示隔离，不是真实安全认证。</p>
+      </div>
+      <form id="loginForm" class="content-card login-card" novalidate>
+        <label class="field"><span>后台密码</span><input id="sellerPassword" type="password" autocomplete="current-password" placeholder="默认密码 demo123" required></label>
+        <div id="loginMessage" class="form-message" role="alert" hidden></div>
+        <button class="button button-primary" type="submit">进入后台</button>
+        <p class="quiet-note">初始密码：<code>demo123</code>。可在“店铺设置”中修改。</p>
+      </form>
+    </section>
+
+    <section id="sellerApp" class="seller-app" hidden>
+      <div class="admin-heading">
+        <div>
+          <p class="kicker">SELLER CONSOLE</p>
+          <h1 id="adminShopName">复合纸工作室</h1>
+          <p id="adminShopMeta">静态演示后台</p>
+        </div>
+        <div class="admin-actions">
+          <a class="button button-secondary" href="../buyer/">预览买家页</a>
+          <button id="logoutBtn" class="button button-quiet" type="button">退出</button>
+        </div>
+      </div>
+
+      <nav class="admin-tabs" aria-label="后台功能">
+        <button class="active" type="button" data-tab="dashboard" aria-selected="true">概览</button>
+        <button type="button" data-tab="settings" aria-selected="false">店铺设置</button>
+        <button type="button" data-tab="catalog" aria-selected="false">种类与细节</button>
+        <button type="button" data-tab="orders" aria-selected="false">订单管理</button>
+        <button type="button" data-tab="backup" aria-selected="false">数据备份</button>
+      </nav>
+
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+      <section class="tab-view active" id="tab-dashboard" aria-labelledby="dashboardTitle">
+        <h2 class="sr-only" id="dashboardTitle">后台概览</h2>
+        <div class="metric-grid">
+          <article><span>分类</span><strong id="metricGroups">0</strong><small>启用与隐藏均计入</small></article>
+          <article><span>选项</span><strong id="metricOptions">0</strong><small>图片、介绍与价格</small></article>
+          <article><span>订单</span><strong id="metricOrders">0</strong><small>当前浏览器记录</small></article>
+          <article><span>待处理</span><strong id="metricPending">0</strong><small>待接单至制作中</small></article>
+        </div>
+        <div class="content-card guidance-card">
+          <div><p class="kicker">HOW IT WORKS</p><h2>先配置目录，再预览买家页面。</h2></div>
+          <ol class="guidance-list">
+            <li><span>01</span><div><strong>店铺设置</strong><p>填写店名、起订量、基础单价、制作周期与封面图。</p></div></li>
+            <li><span>02</span><div><strong>种类与细节</strong><p>添加厚度、材质、颜色、纹路等分类，以及每个分类的选项。</p></div></li>
+            <li><span>03</span><div><strong>订单管理</strong><p>在同一浏览器内演示接单、制作、发货与完成。</p></div></li>
+          </ol>
+          <p class="quiet-note">不同浏览器和设备之间不会同步数据；导出 JSON 可以手动迁移配置。</p>
+        </div>
+      </section>
+
+      <section class="tab-view" id="tab-settings" aria-labelledby="settingsTitle" hidden>
+        <form id="settingsForm" class="content-card settings-form" novalidate>
+          <div class="section-heading"><div><p class="kicker">SHOP SETTINGS</p><h2 id="settingsTitle">店铺与报价基础</h2></div></div>
+          <div class="settings-layout">
+            <div class="field-grid two-columns">
+              <label class="field"><span>店铺名称 <em>*</em></span><input id="shopNameInput" type="text" maxlength="60" required></label>
+              <label class="field"><span>联系方式</span><input id="contactInput" type="text" maxlength="80" placeholder="微信、电话或邮箱"></label>
+              <label class="field span-two"><span>一句话介绍</span><input id="sloganInput" type="text" maxlength="160"></label>
+              <label class="field span-two"><span>买家公告</span><textarea id="announcementInput" rows="3" maxlength="360"></textarea></label>
+              <label class="field"><span>基础单价 <em>*</em></span><input id="basePriceInput" type="number" min="0" step="0.01" required></label>
+              <label class="field"><span>计价单位 <em>*</em></span><input id="unitInput" type="text" maxlength="12" placeholder="张 / 平方米" required></label>
+              <label class="field"><span>最小起订量 <em>*</em></span><input id="minQtyInput" type="number" min="1" step="1" required></label>
+              <label class="field"><span>运费 / 杂费</span><input id="shippingFeeInput" type="number" min="0" step="0.01"></label>
+              <label class="field"><span>制作周期</span><input id="leadTimeInput" type="text" maxlength="60" placeholder="例如 3–5 个工作日"></label>
+              <label class="field"><span>后台密码 <em>*</em></span><input id="passwordInput" type="text" maxlength="60" required></label>
+              <label class="field span-two"><span>商家地址</span><textarea id="addressInput" rows="2" maxlength="240"></textarea></label>
+            </div>
+            <div class="cover-editor">
+              <p class="field-label">店铺封面图</p>
+              <div class="cover-preview-frame"><img id="coverPreview" alt="店铺封面预览"></div>
+              <label class="file-button"><input id="coverInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><span>选择图片</span></label>
+              <p>图片会压缩后保存到浏览器。建议单张不超过 8 MB。</p>
+            </div>
+          </div>
+          <div id="settingsMessage" class="form-message" role="alert" hidden></div>
+          <div class="form-footer"><button class="button button-primary" type="submit">保存店铺设置</button><p>保存后买家页面立即读取新配置。</p></div>
+        </form>
+      </section>
+
+      <section class="tab-view" id="tab-catalog" aria-labelledby="catalogTitle" hidden>
+        <div class="content-card catalog-panel">
+          <div class="section-heading">
+            <div><p class="kicker">CATALOG BUILDER</p><h2 id="catalogTitle">种类与细节</h2><p>分类支持单选、多选或文本说明；选项支持图片、简述、标签与单价加价。</p></div>
+            <button id="addGroupBtn" class="button button-primary" type="button">新增分类</button>
+          </div>
+          <div id="groupEditorList" class="group-editor-list"></div>
+        </div>
+      </section>
+
+      <section class="tab-view" id="tab-orders" aria-labelledby="ordersTitle" hidden>
+        <div class="content-card order-management">
+          <div class="section-heading">
+            <div><p class="kicker">ORDERS</p><h2 id="ordersTitle">订单管理</h2></div>
+            <button id="clearFinishedBtn" class="text-button danger-text" type="button">清理已完成 / 已取消</button>
+          </div>
+          <div class="order-toolbar">
+            <label class="field compact-field"><span>状态</span><select id="statusFilter">
+              <option value="all">全部状态</option><option value="pending">待接单</option><option value="accepted">已接单</option><option value="making">制作中</option><option value="shipped">已发货</option><option value="completed">已完成</option><option value="cancelled">已取消</option>
+            </select></label>
+            <label class="field compact-field search-field"><span>搜索</span><input id="orderSearch" type="search" maxlength="80" placeholder="订单号 / 姓名 / 电话 / 地址"></label>
+          </div>
+          <div id="ordersList" class="orders-list"></div>
+        </div>
+      </section>
+
+      <section class="tab-view" id="tab-backup" aria-labelledby="backupTitle" hidden>
+        <div class="content-card backup-panel">
+          <div class="section-heading"><div><p class="kicker">BACKUP</p><h2 id="backupTitle">导入、导出与重置</h2></div></div>
+          <div class="backup-grid">
+            <article><h3>导出数据</h3><p>下载店铺、分类、选项和订单的 JSON 备份。</p><div class="button-row"><button id="exportBtn" class="button button-secondary" type="button">下载 JSON</button><button id="copyDataBtn" class="button button-quiet" type="button">复制 JSON</button></div></article>
+            <article><h3>导入数据</h3><p>粘贴 JSON 或选择备份文件。导入会覆盖当前浏览器数据。</p><label class="field"><span>JSON 内容</span><textarea id="importText" rows="7" spellcheck="false" placeholder="在这里粘贴导出的 JSON"></textarea></label><label class="file-button inline-file"><input id="importFile" type="file" accept="application/json,.json"><span>选择 JSON 文件</span></label><button id="importBtn" class="button button-primary" type="button">导入并覆盖</button></article>
+            <article class="danger-card"><h3>重置数据</h3><p>恢复默认演示会覆盖全部数据；清空订单会保留店铺和目录。</p><div class="button-row"><button id="resetDemoBtn" class="button button-danger" type="button">恢复默认演示</button><button id="clearOrdersBtn" class="button button-quiet danger-text" type="button">清空全部订单</button></div></article>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="shell footer-inner"><span>商家后台</span><span>静态演示 · 数据保存在当前浏览器</span></div></footer>
+  <script src="../assets/store.js"></script>
+  <script src="../assets/app.js"></script>
+  <script src="../assets/seller.js"></script>
+</body>
+</html>

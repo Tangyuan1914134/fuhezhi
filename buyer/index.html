@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe4">
+  <title>买家定制 · 复合纸定制实验室</title>
+  <meta name="description" content="选择复合纸厚度、材质、层数、颜色、染色纹路和数量，并生成静态演示订单。">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../" aria-label="返回首页">
+        <span class="brand-symbol" aria-hidden="true">FHZ</span>
+        <span class="brand-copy"><strong id="buyerShopNameTop">复合纸定制</strong><small>买家定制页</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">菜单</button>
+      <nav class="site-nav" id="siteNav" aria-label="主导航">
+        <a class="active" aria-current="page" href="../buyer/">买家定制</a>
+        <a href="../seller/">商家后台</a>
+        <a href="../orders/">订单查询</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="shell page-main">
+    <section class="merchant-intro">
+      <div class="merchant-copy">
+        <p class="kicker">CUSTOM ORDER</p>
+        <h1 id="shopName">复合纸定制</h1>
+        <p id="shopSlogan" class="page-lead"></p>
+        <dl class="merchant-meta">
+          <div><dt>制作周期</dt><dd id="leadTime">待确认</dd></div>
+          <div><dt>起订量</dt><dd id="minQty">待确认</dd></div>
+          <div><dt>联系商家</dt><dd id="contact">待填写</dd></div>
+        </dl>
+      </div>
+      <div class="merchant-cover-wrap">
+        <img id="shopCover" class="merchant-cover" alt="商家复合纸样展示">
+      </div>
+    </section>
+
+    <div id="shopNotice" class="announcement" role="note"></div>
+
+    <div class="builder-layout">
+      <form id="buyerForm" class="content-card buyer-form" novalidate>
+        <section aria-labelledby="specTitle">
+          <div class="section-heading">
+            <div><p class="kicker">STEP 01</p><h2 id="specTitle">选择纸张规格</h2></div>
+            <button class="text-button" id="resetChoiceBtn" type="button">重置选择</button>
+          </div>
+          <div id="groupsContainer" class="groups-container"></div>
+        </section>
+
+        <section class="form-section" aria-labelledby="deliveryTitle">
+          <div class="section-heading">
+            <div><p class="kicker">STEP 02</p><h2 id="deliveryTitle">数量与收货信息</h2></div>
+          </div>
+          <div class="field-grid two-columns">
+            <label class="field"><span>定制数量 <em aria-hidden="true">*</em></span><input id="quantity" name="quantity" type="number" min="1" step="1" inputmode="numeric" required></label>
+            <label class="field"><span>期望交付日期</span><input id="deadline" name="deadline" type="date"></label>
+            <label class="field"><span>收货人 <em aria-hidden="true">*</em></span><input id="buyerName" name="buyerName" type="text" autocomplete="name" maxlength="40" placeholder="请输入姓名" required></label>
+            <label class="field"><span>联系电话 <em aria-hidden="true">*</em></span><input id="buyerPhone" name="buyerPhone" type="tel" autocomplete="tel" maxlength="30" placeholder="手机或座机" required></label>
+            <label class="field span-two"><span>收货地址 <em aria-hidden="true">*</em></span><textarea id="address" name="address" rows="3" autocomplete="street-address" maxlength="240" placeholder="省 / 市 / 区 / 街道 / 门牌号" required></textarea></label>
+            <label class="field span-two"><span>订单备注</span><textarea id="remark" name="remark" rows="3" maxlength="500" placeholder="用途、包装方式、色号、样纸编号或其他说明"></textarea></label>
+          </div>
+        </section>
+
+        <div id="formMessage" class="form-message" role="alert" aria-live="assertive" hidden></div>
+        <div class="form-footer">
+          <button class="button button-primary" type="submit">提交演示订单</button>
+          <p>不包含支付；订单仅保存在当前浏览器。</p>
+        </div>
+      </form>
+
+      <aside class="content-card quote-panel" aria-labelledby="quoteTitle">
+        <div class="section-heading compact">
+          <div><p class="kicker">LIVE QUOTE</p><h2 id="quoteTitle">规格摘要</h2></div>
+        </div>
+        <div id="summaryList" class="summary-list"></div>
+        <dl class="price-summary">
+          <div><dt>基础单价</dt><dd id="basePrice">¥0.00</dd></div>
+          <div><dt>选项加价</dt><dd id="extraPrice">¥0.00</dd></div>
+          <div><dt>数量</dt><dd id="qtyPreview">0</dd></div>
+          <div><dt>运费 / 杂费</dt><dd id="shippingFee">¥0.00</dd></div>
+          <div class="price-total"><dt>预计合计</dt><dd id="totalPrice">¥0.00</dd></div>
+        </dl>
+        <p class="quiet-note">演示报价由商家设置的基础单价与选项加价自动计算，真实交易仍需双方确认。</p>
+      </aside>
+    </div>
+  </main>
+
+  <dialog id="orderDialog" class="dialog-shell" aria-labelledby="orderDialogTitle">
+    <div class="dialog-card dialog-small">
+      <button class="dialog-close" id="closeOrderDialog" type="button" aria-label="关闭">×</button>
+      <p class="kicker">ORDER CREATED</p>
+      <h2 id="orderDialogTitle">订单已生成</h2>
+      <p class="dialog-lead">订单已保存到当前浏览器。请记录订单号，或复制摘要发给商家。</p>
+      <div id="orderDialogBody"></div>
+      <div class="dialog-actions">
+        <button class="button button-secondary" id="copyOrderBtn" type="button">复制订单摘要</button>
+        <a class="button button-quiet" id="viewOrderLink" href="../orders/">查看订单</a>
+        <button class="button button-primary" id="okOrderBtn" type="button">完成</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner"><span>买家定制页</span><span>静态演示 · 无支付</span></div>
+  </footer>
+  <script src="../assets/store.js"></script>
+  <script src="../assets/app.js"></script>
+  <script src="../assets/buyer.js"></script>
+</body>
+</html>

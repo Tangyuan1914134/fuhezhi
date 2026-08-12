@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe4">
+  <title>订单查询 · 复合纸定制实验室</title>
+  <meta name="description" content="查询当前浏览器中保存的复合纸定制演示订单及物流状态。">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../" aria-label="返回首页">
+        <span class="brand-symbol" aria-hidden="true">FHZ</span>
+        <span class="brand-copy"><strong>订单查询</strong><small>当前浏览器数据</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">菜单</button>
+      <nav class="site-nav" id="siteNav" aria-label="主导航">
+        <a href="../buyer/">买家定制</a>
+        <a href="../seller/">商家后台</a>
+        <a class="active" aria-current="page" href="../orders/">订单查询</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="shell page-main order-page">
+    <section class="page-heading-row">
+      <div><p class="kicker">ORDER LOOKUP</p><h1>查询订单状态</h1><p class="page-lead">输入订单号查询当前浏览器保存的订单；联系电话后四位可作为简单校验。</p></div>
+      <a class="button button-secondary" href="../buyer/">新建订单</a>
+    </section>
+
+    <section class="content-card lookup-card">
+      <form id="orderLookupForm" class="lookup-form" novalidate>
+        <label class="field"><span>订单号</span><input id="orderCodeInput" type="text" autocomplete="off" maxlength="32" placeholder="例如 CP20260812ABCD" required></label>
+        <label class="field"><span>联系电话后四位（选填）</span><input id="phoneTailInput" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="例如 8899"></label>
+        <button class="button button-primary" type="submit">查询</button>
+        <button class="button button-quiet" id="loadLatestOrderBtn" type="button">填入最近订单</button>
+      </form>
+      <p class="quiet-note">静态版本没有云端订单库，只有同一浏览器下单产生的数据可以查询。</p>
+    </section>
+
+    <section class="content-card result-card" aria-labelledby="resultTitle">
+      <div class="section-heading compact"><div><p class="kicker">RESULT</p><h2 id="resultTitle">查询结果</h2></div></div>
+      <div id="orderResult" class="lookup-result" aria-live="polite"></div>
+    </section>
+
+    <section class="content-card recent-section" aria-labelledby="recentTitle">
+      <div class="section-heading compact"><div><p class="kicker">RECENT</p><h2 id="recentTitle">最近订单</h2></div></div>
+      <div id="recentOrders" class="orders-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner"><span>订单查询页</span><span>数据仅保存在当前浏览器</span></div>
+  </footer>
+  <script src="../assets/store.js"></script>
+  <script src="../assets/app.js"></script>
+  <script src="../assets/orders.js"></script>
+</body>
+</html>

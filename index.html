@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe4">
+  <title>复合纸定制实验室</title>
+  <meta name="description" content="一个可直接部署到 Cloudflare Pages 的复合纸定制静态演示网站，包含独立买家页面、商家后台与订单查询。">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="复合纸定制实验室首页">
+        <span class="brand-symbol" aria-hidden="true">FHZ</span>
+        <span class="brand-copy"><strong>复合纸定制</strong><small>Composite Paper Studio</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">菜单</button>
+      <nav class="site-nav" id="siteNav" aria-label="主导航">
+        <a href="./buyer/">买家定制</a>
+        <a href="./seller/">商家后台</a>
+        <a href="./orders/">订单查询</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="shell home-hero">
+      <div class="hero-copy">
+        <p class="kicker">FHZ / COMPOSITE PAPER</p>
+        <h1>把纸张的层次、触感与颜色，组合成你的规格。</h1>
+        <p class="hero-lead">买家完成选型、数量与收货信息；商家自由维护纸张分类、图片、说明和价格。当前版本不接支付，只保留完整的定制与订单演示流程。</p>
+        <div class="hero-actions">
+          <a class="button button-primary button-large" href="./buyer/">开始定制</a>
+          <a class="button button-secondary button-large" href="./seller/">进入商家后台</a>
+        </div>
+        <p class="context-note">纯 HTML / CSS / JavaScript · 无支付 · 数据保存在当前浏览器</p>
+      </div>
+
+      <div class="material-visual" aria-label="复合纸层叠示意">
+        <div class="paper-sheet paper-sheet-a"><span>正面纸</span><b>雾绿 · 云染</b></div>
+        <div class="paper-sheet paper-sheet-b"><span>功能层</span><b>防水覆膜</b></div>
+        <div class="paper-sheet paper-sheet-c"><span>背面纸</span><b>原色牛皮</b></div>
+        <div class="visual-caption">
+          <span>示例组合</span>
+          <strong>三层复合 / 350g</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell role-grid" aria-label="使用入口">
+      <a class="role-card" href="./buyer/">
+        <span class="role-number">01</span>
+        <div>
+          <p class="kicker">BUYER</p>
+          <h2>买家定制</h2>
+          <p>选择厚度、材质、层数、正反面颜色、纹路与数量，系统自动形成规格摘要和演示报价。</p>
+        </div>
+        <span class="role-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="role-card" href="./seller/">
+        <span class="role-number">02</span>
+        <div>
+          <p class="kicker">SELLER</p>
+          <h2>商家配置</h2>
+          <p>添加任意分类和选项，上传图片、填写简要介绍与加价，并管理接单、制作和发货状态。</p>
+        </div>
+        <span class="role-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+
+    <section class="shell process-strip" aria-label="演示流程">
+      <div><span>01</span><strong>商家配置目录</strong><small>分类、选项、图片、价格</small></div>
+      <div><span>02</span><strong>买家提交订单</strong><small>规格、数量、地址、备注</small></div>
+      <div><span>03</span><strong>商家推进状态</strong><small>接单、制作、发货、完成</small></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>复合纸定制实验室</span>
+      <span>静态演示版本 · 不包含支付与云端同步</span>
+    </div>
+  </footer>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
